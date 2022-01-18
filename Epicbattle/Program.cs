@@ -14,25 +14,28 @@ namespace EpicBattle
             //string[] heroes = { "Travis Scotch", "Scooby-Doo", "Sponge Bob", "Patrick" };
             //string[] villians = { "Plankton", "Hitler", "Nigga from Ghetto", "Mall Security", "That guy" };
 
-            string randomHero = GetRandomCharacter(heroes);
-            string randomVillain = GetRandomCharacter(villians);
+            string randomHero = GetRandomElement(heroes);
+            string randomVillain = GetRandomElement(villians);
             string randomHeroWeapon = GetWeapon(weapon);
             string randomVillainWeapon = GetWeapon(weapon);
             string heroArmor = GetRandomElement(armor);
             string villainArmor = GetRandomElement(armor);
-            string heroHP = GenerateHP(heroArmor);
-            string villain = GenerateHP(villainArmor);
 
             Console.WriteLine($"Your random hero is {randomHero}");
             Console.WriteLine($"Your random hero weapon is {randomHeroWeapon}");
-            Console.WriteLine($"Your random hero armor is{heroArmor}");
+            Console.WriteLine($"Your random hero armor is {heroArmor}");
             Console.WriteLine($"Your random villian is {randomVillain}");
-            Console.WriteLine($"Your random  villian weapon is {randomVillainWeapon}");
-            Console.WriteLine($"Your random villain armor is{villainArmor}");
+            Console.WriteLine($"Your random villian weapon is {randomVillainWeapon}");
+            Console.WriteLine($"Your random villain armor is {villainArmor}");
 
+            while (heroArmor >= 0 && villainArmor >= 0)
+            {
+                heroArmor = heroArmor - Hit(randomVillain, randomVillainWeapon);
+                villainArmor = villainArmor - Hit(randomHero, randomHeroWeapon);
+            }
         }
 
-        public static string GetRandomCharacter(string[] someArray)
+        public static string GetRandomElement(string[] someArray)
         {
             return someArray[GetRandomIndex(someArray)];
         }
@@ -57,7 +60,23 @@ namespace EpicBattle
         {
             return armor.Length;
 
-
         }
+        public static int Hit(string character, string weapon)
+        {
+            Random rnd = new Random();
+            int strike = weapon.Length - 2;
+            Console.WriteLine($"{character} hit {strike}.");
+
+            if (strike == 0)
+            {
+                Console.WriteLine($"Bad luck, {character} missed the target");
+            }
+            else if (strike == weapon.Length - 2)
+            {
+                Console.WriteLine($"Awesome! {character} made a critical hit!");
+            }
+            return strike;
+        }
+
     }
 }
