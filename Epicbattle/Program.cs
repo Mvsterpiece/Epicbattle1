@@ -18,20 +18,32 @@ namespace EpicBattle
             string randomVillain = GetRandomElement(villians);
             string randomHeroWeapon = GetWeapon(weapon);
             string randomVillainWeapon = GetWeapon(weapon);
-            string heroArmor = GetRandomElement(armor);
-            string villainArmor = GetRandomElement(armor);
+            string heroHP = GetRandomElement(armor);
+            string villainHP = GetRandomElement(armor);
 
             Console.WriteLine($"Your random hero is {randomHero}");
             Console.WriteLine($"Your random hero weapon is {randomHeroWeapon}");
-            Console.WriteLine($"Your random hero armor is {heroArmor}");
+            Console.WriteLine($"Your random hero armor is {heroHP}");
             Console.WriteLine($"Your random villian is {randomVillain}");
             Console.WriteLine($"Your random villian weapon is {randomVillainWeapon}");
-            Console.WriteLine($"Your random villain armor is {villainArmor}");
+            Console.WriteLine($"Your random villain armor is {villainHP}");
 
-            while (heroArmor >= 0 && villainArmor >= 0)
+            while (heroHP >= 0 && villainHP >= 0)
             {
-                heroArmor = heroArmor - Hit(randomVillain, randomVillainWeapon);
-                villainArmor = villainArmor - Hit(randomHero, randomHeroWeapon);
+                heroHP = heroHP - Hit(randomVillain, randomVillainWeapon);
+                villainHP = villainHP - Hit(randomHero, randomHeroWeapon);
+            }
+            if (heroHP > villainHP)
+            {
+                Console.WriteLine($"{randomHero} saves the day!");
+            }else if (heroHP < villainHP)
+            {
+                Console.WriteLine("Dark Side wins!");
+            }else
+            {
+                Console.WriteLine($"Both {randomHero} and {randomVillain} dropped dead.");
+            
+            
             }
         }
 
